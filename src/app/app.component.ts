@@ -1,4 +1,4 @@
-import {OnInit} from'@angular/core';
+  import {OnInit} from'@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,13 +11,20 @@ import { UsersService } from './services/users.service';
 })
 export class AppComponent implements OnInit {
   private users:User[]=[];
+  private users1:User={
+    'id': 10,
+    'name': 'ndiyinja',
+    'username': 'Tar ma 7',
+    'email': 'pheshiepheshie@gmail.com',
+
+  };
 private user:User = {
   'id': 10,
     'name': 'ndiyinja',
     'username': 'Antonette',
-    'email': 'Shanna@melissa.tv',
+    'email': 'pheshiepheshie@gmail.com',
     'address': {
-      'street': 'Victor Plains',
+      'street': 'Salwe crescent',
       'suite': 'Suite 879',
       'city': 'Wisokyburgh',
       'zipcode': '90566-7771',
@@ -42,26 +49,21 @@ constructor(private _userService:UsersService) {
 }
 //initializing the values
 ngOnInit(): void {
-    this.onGetUsers();
-    this.onGetUser();
-    console.log('wow',this.users.length);
-    this.onUserCreate()
+    // this.onGetUsers();
+    // this.onGetUser();
+    // console.log('wow',this.users.length);
+    // this.onUserCreate();
+    // this.onUpdateUser();
+    this.onEditUser();
+    this.onDelete();
 }
 
 //creating the user from the service
 
 onUserCreate():void{
-  this._userService.createUser(this.user).subscribe({
+  this._userService.createUser(this.user);
+  console.log("done creating resources");
 
-    next:(val)=>{
-console.table(val)
-},
-
-    error:(err)=>{
-console.log(err , 'iyhuwiii');
-
-    }
-  })
 }
 //getting the users from the service
 
@@ -82,7 +84,10 @@ this._userService.getUsers().subscribe({
     console.log(`an error has occured${error}`);
 
   },
-  complete:()=>{}
+  complete:()=>{
+    console.log("got the list of users");
+
+  }
 })
 }
 
@@ -100,5 +105,30 @@ setTimeout(() => {
   })
 
 }
+
+//updateUser
+
+onUpdateUser(){
+  return this._userService.updateUser(this.user).subscribe((value)=>{
+    console.log("hosh",value);
+  },
+
+  );
+
+
+}
+
+//onEditUser
+onEditUser(){
+  return this._userService.editUser(this.users1).subscribe((response)=>console.log("responses",response)
+  )
+
+}
+onDelete(){
+  return this._userService.deleteUser(this.users1).subscribe((response)=>console.log("Deleted user",response)
+  )
+
+}
+
 
 }

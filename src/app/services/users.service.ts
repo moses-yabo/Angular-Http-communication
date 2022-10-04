@@ -22,4 +22,17 @@ private apiUrl = environment.apiUrl;
    createUser(user:User):Observable<User>{
     return this.http.post<User>(`${this.apiUrl}`,user);
    }
+
+
+   // updating the User
+   updateUser(user:User):Observable<User>{
+    return this.http.put<User>(`${this.apiUrl}/${user.id}`,user);
+   }
+
+   editUser(user:User):Observable<User>{
+    return this.http.patch<User>(`${this.apiUrl}/${user.id}`,user);
+   }
+   deleteUser(user:User):Observable<User>{
+    return this.http.delete<User>(`${this.apiUrl}/${user.id}`);
+   }
 }
